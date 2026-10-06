@@ -370,6 +370,34 @@ TC_NP = "*New Patient Offer: $199 for a comprehensive examination, scale and cle
 TC_IMP = "**Dental implant from $4,490 includes a single implant fixture and crown. Some patients require additional procedures such as bone or tissue grafting, extractions or sinus lifts which are quoted separately after assessment. Payment plans are subject to credit approval."
 TC_EM = "Same-day emergency appointments are subject to availability. Emergency fees depend on the treatment required and will be confirmed with you before treatment begins. Health fund rebates vary by fund and level of cover."
 
+def finance_block():
+    return f"""<section class="finance" id="finance"><div class="wrap">
+  <div class="fin-grid">
+    <div>
+      <span class="kicker">Ways to pay</span>
+      <h2>Implants within reach: <span>payment plans</span> and early release of super</h2>
+      <p>You should not have to put off replacing missing teeth. Most of our implant patients spread the cost, and many use their superannuation to cover treatment. We will walk you through every option at your consultation.</p>
+      <a class="btn btn-yellow js-book" href="#book" style="margin-top:22px">{I["cal"]} Book an implant consultation</a>
+    </div>
+    <div class="fin-cards">
+      <div class="fin-card"><div class="ic">{I["dollar"]}</div><b>Interest-free payment plans</b><span>Approved on the spot in the practice. Spread your implant over manageable repayments with no interest.</span></div>
+      <div class="fin-card hl"><div class="ic">{I["shield"]}</div><b>Early release of super</b><span>Dental implants can qualify for early access to superannuation on compassionate grounds through the ATO. We provide the treatment plan and quote you need to apply.</span></div>
+      <div class="fin-card"><div class="ic">{I["tickc"]}</div><b>Afterpay &amp; Zip</b><span>Buy now, pay later options for smaller stages of treatment.</span></div>
+      <div class="fin-card"><div class="ic">{I["heart"]}</div><b>Health fund rebates</b><span>We claim any eligible rebate on the spot with HICAPS, so you only pay the gap.</span></div>
+    </div>
+  </div>
+  <p class="fine" style="text-align:center;margin-top:22px">Payment plans subject to credit approval. Early release of super is assessed by the ATO on compassionate grounds and is not guaranteed; we recommend seeking independent financial advice.</p>
+</div></section>"""
+
+def before_after_block():
+    cards = "".join(f'<figure class="ba"><img src="img/ba-{i}.jpg" alt="Dental implant before and after, patient {i}" loading="lazy"><span class="l b">Before</span><span class="l a">After</span></figure>' for i in range(1,7))
+    return f"""<section class="results" id="results"><div class="wrap">
+  <div class="sec-h center"><span class="kicker">Real results</span><h2>Before and after dental implants</h2><p>From single missing teeth to full smile rebuilds. These are real patients who chose to replace missing or failing teeth with implants.</p></div>
+  <div class="ba-grid">{cards}</div>
+  <p class="fine" style="text-align:center;margin-top:18px">Photos shown with patient consent. Individual results vary. Any surgical or invasive procedure carries risks; a consultation is required to confirm suitability.</p>
+  <div style="text-align:center;margin-top:24px"><a class="btn btn-navy btn-lg js-book" href="#book">{I["cal"]} Start my smile transformation</a></div>
+</div></section>"""
+
 # ================= PAGE 1: NEW PATIENTS =================
 def page_new_patients():
     h = head("New Patient Offer $199 | Dentist St Marys | Western Sydney Smiles", "New patients: comprehensive check-up, clean, x-rays and fluoride for $199 (valued at $425). nib First Choice provider, all health funds, open Saturdays. Book online in 30 seconds.", "np")
@@ -417,7 +445,7 @@ def page_implants():
         "A permanent, natural-looking tooth that lets you eat, speak and smile with confidence. Assessed, placed and restored by our experienced team in St Marys, with payment plans so you can start sooner.",
         f'<a class="btn btn-yellow btn-lg js-book" href="#book">{I["cal"]} Book an Implant Consultation</a>',
         f'<a class="btn btn-ghost btn-lg js-call" href="{TEL}">{I["phone"]} {PHONE}</a>',
-        trust_items([("tickc","Implant + crown from $4,490"),("dollar","Interest-free payment plans"),("scan","OPG x-ray on site"),("users","6 experienced dentists")]),
+        trust_items([("tickc","Implant + crown from $4,490"),("dollar","Payment plans &amp; early release of super"),("scan","OPG x-ray on site"),("users","6 experienced dentists")]),
         '<div class="offer-float"><span class="k">Single implant</span><div class="v">$4,490<small>**</small></div><span class="d">Implant fixture + crown. Payment plans available.</span></div>')
     book = booking(
         "Book your implant consultation",
@@ -472,7 +500,7 @@ def page_implants():
         ("Can I use my health fund or a payment plan?","Yes. Health fund rebates for implants vary by fund and level of cover, and we can claim on the spot for you. We also offer interest-free payment plans with on-the-spot approval, plus Afterpay and Zip."),
         ("What about replacing all my teeth?","If you are missing many or all of your teeth, implant-retained dentures or a full-arch solution may be the best option. Our dentists and in-house denture technician work together on these cases. Book a consultation to discuss what suits you."),
     ], "Dental implant questions, answered")
-    body = (topbar("Dental implants from $4,490** incl. crown · Payment plans available") + header("Book Consultation") + hero_html + nib_block() + book + rating_band() + process + pricing + why + funds_block("Health fund rebates claimed for you. <span>Flexible payment plans</span> for the rest.", "We accept all major health funds and claim on the spot with HICAPS. For the balance, choose an interest-free payment plan approved on the spot, Afterpay or Zip, so you can start treatment now rather than later.") + team_block("The team behind your new smile", "Six experienced dentists and an in-house denture technician in St Marys, which means your implant is planned, placed and restored by one team who know your case.") + faq + location_block()
+    body = (topbar("Dental implants from $4,490** incl. crown · Payment plans available") + header("Book Consultation") + hero_html + finance_block() + book + rating_band() + before_after_block() + process + pricing + why + funds_block("Health fund rebates claimed for you. <span>Flexible payment plans</span> for the rest.", "We accept all major health funds and claim on the spot with HICAPS. For the balance, choose an interest-free payment plan approved on the spot, Afterpay or Zip, so you can start treatment now rather than later.") + team_block("The team behind your new smile", "Six experienced dentists and an in-house denture technician in St Marys, which means your implant is planned, placed and restored by one team who know your case.") + faq + location_block()
             + final_cta('Stop hiding your smile. <em>Book your implant consultation today.</em>', "Find out if implants are right for you and get a clear, itemised quote. Payment plans available.", "Book an Implant Consultation") + footer(TC_IMP))
     return h + body
 
@@ -532,8 +560,8 @@ def page_emergency():
 
 # ================= PAGE 4: THANK YOU =================
 def page_thank_you():
-    h = head("Thank You | Western Sydney Smiles", "Your appointment request has been received.", "ty-page")
-    body = f'''{topbar("Thank you, we have received your request")}
+    h = head("Appointment Confirmed | Western Sydney Smiles", "Your appointment with Western Sydney Smiles is confirmed.", "ty-page")
+    body = f"""{topbar("Your appointment is confirmed")}
 <header class="site"><div class="wrap">
   <a class="logo" href="https://westernsydneysmiles.com.au" aria-label="Western Sydney Smiles"><img src="img/logo.png" alt="Western Sydney Smiles" width="300" height="89"></a>
   <nav><a class="phone js-call" href="{TEL}">{I["phone"]}<span><small>Call us now</small>{PHONE}</span></a></nav>
@@ -541,17 +569,29 @@ def page_thank_you():
 <section class="ty"><div class="wrap">
   <div class="card">
     <div class="tick">{I["tick"]}</div>
-    <h1>Thanks<span id="tyName"></span>, your request is in!</h1>
-    <p class="lead" id="tyLead">Our reception team will call or text you shortly to confirm a time that suits you. During opening hours this is usually within the hour.</p>
+    <span class="kicker" id="tyKicker">Booking confirmed</span>
+    <h1 id="tyTitle">Your appointment is confirmed<span id="tyName"></span>!</h1>
+    <p class="lead" id="tyLead">Thanks for booking with Western Sydney Smiles. You will receive a confirmation by SMS and email shortly, and our reception team will be in touch to finalise your booking.</p>
     <div class="next">
-      <div><span class="n">1</span><b>We call you</b><span>Reception will ring from {PHONE} to confirm your day and time. Save the number so you do not miss us.</span></div>
-      <div><span class="n">2</span><b>Secure your spot</b><span>A $50 deposit holds your appointment. It comes off your treatment on the day or is refunded with 24 hours' notice.</span></div>
-      <div><span class="n">3</span><b>Come in and smile</b><span>Bring your health fund card and Medicare card (for kids' CDBS) so we can claim on the spot.</span></div>
+      <div><span class="n">1</span><b>Check your phone</b><span>A confirmation text and email with your appointment details is on its way. Save our number, {PHONE}, so you do not miss us.</span></div>
+      <div><span class="n">2</span><b>Secure your spot</b><span>Reception will call to take a $50 deposit, which comes off your treatment on the day or is refunded with more than 24 hours' notice.</span></div>
+      <div><span class="n">3</span><b>On the day</b><span>Arrive 10 minutes early with your health fund card, Medicare card and any recent x-rays. Free parking via Sainsbury Road.</span></div>
     </div>
-    <div class="ctas"><a class="btn btn-yellow js-call" href="{TEL}">{I["phone"]} Need us sooner? Call {PHONE}</a><a class="btn btn-outline" href="{MAPS}" target="_blank" rel="noopener">{I["pin"]} Get directions</a></div>
+    <div class="ctas"><a class="btn btn-outline" href="{MAPS}" target="_blank" rel="noopener">{I["pin"]} Get directions</a><a class="btn btn-yellow js-call" href="{TEL}">{I["phone"]} Need to change your time? Call us</a></div>
     <div class="deets">
       <div><b>Where to find us</b>{ADDRESS}<br>Next to Astley Medical Centre. Free parking via Sainsbury Road.</div>
       <div><b>Opening hours</b>Mon to Thu 9am to 6pm · Fri 9am to 5pm<br>Sat 8am to 1pm · Sun closed</div>
+      <div><b>Bring with you</b>Health fund card (we claim on the spot with HICAPS), Medicare card for children's CDBS, and a list of any medications.</div>
+      <div><b>Nervous about the dentist?</b>Let us know when you arrive. Our team is used to looking after anxious patients and will take things at your pace.</div>
+    </div>
+  </div>
+  <div class="ty-more">
+    <span class="kicker">While you wait</span>
+    <div class="ty-links">
+      <a href="index.html"><b>New patient offer</b><span>Check-up, clean &amp; x-rays for $199</span></a>
+      <a href="dental-implants.html"><b>Dental implants</b><span>From $4,490 incl. crown</span></a>
+      <a href="emergency-dentist.html"><b>Emergency dentist</b><span>Same-day appointments</span></a>
+      <a href="https://westernsydneysmiles.com.au" target="_blank" rel="noopener"><b>Main website</b><span>Services, team and prices</span></a>
     </div>
   </div>
 </div></section>
@@ -562,13 +602,19 @@ def page_thank_you():
   <div class="tc">© 2026 Western Sydney Smiles.</div>
 </div></footer>
 <script>
-  // Conversion: GTM listens for this event (booking_complete) on the thank-you page
+  // Conversion: GTM listens for booking_complete on this page
   window.dataLayer=window.dataLayer||[]; window.dataLayer.push({{event:'booking_complete'}});
-  try{{var l=JSON.parse(sessionStorage.getItem('wss_lead')||'null'); if(l){{ if(l.first_name) document.getElementById('tyName').textContent=' '+l.first_name;
+  // If the visitor arrived via the call-back form (not the live scheduler), switch to "request received" wording
+  try{{var l=JSON.parse(sessionStorage.getItem('wss_lead')||'null'); if(l){{
+    sessionStorage.removeItem('wss_lead');
+    document.getElementById('tyKicker').textContent='Request received';
+    document.getElementById('tyTitle').innerHTML='Thanks'+(l.first_name?' '+l.first_name:'')+', we will call you shortly';
     var when=(l.preferred_day&&l.preferred_day!=='Any day'?l.preferred_day:'')+(l.preferred_time&&l.preferred_time!=='Any time'?' '+l.preferred_time.toLowerCase():'');
-    if(l.service) document.getElementById('tyLead').textContent='We have your request for '+l.service.replace(/\\s*\\(.*\\)/,'').toLowerCase()+(when?' ('+when.trim()+')':'')+'. Our reception team will call or text you shortly to confirm a time that suits you. During opening hours this is usually within the hour.'; }}}}catch(e){{}}
+    document.getElementById('tyLead').textContent='We have your request'+(l.service?' for '+l.service.replace(/\\s*\\(.*\\)/,'').toLowerCase():'')+(when?' ('+when.trim()+')':'')+'. Our reception team will call or text you to confirm a time that suits you. During opening hours this is usually within the hour.';
+    var n=document.querySelectorAll('.next > div'); if(n[0]){{n[0].querySelector('b').textContent='We call you';n[0].querySelector('span:last-child').textContent='Reception will ring from {PHONE} to lock in your day and time. Save the number so you do not miss us.';}}
+  }}}}catch(e){{}}
 </script>
-</body></html>'''
+</body></html>"""
     return h + body
 
 if __name__ == "__main__":
