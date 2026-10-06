@@ -296,7 +296,7 @@ def final_cta(h2, p, primary_text="Book Online Now"):
   <div class="ctas"><a class="btn btn-yellow btn-lg js-book" href="#book">{I["cal"]} {primary_text}</a><a class="btn btn-ghost btn-lg js-call" href="{TEL}">{I["phone"]} {PHONE}</a></div>
 </div></section>'''
 
-FOOT_NAV = '<nav class="fnav"><a href="index.html">New Patient Offer</a><a href="dental-implants.html">Dental Implants</a><a href="emergency-dentist.html">Emergency Dentist</a><a href="https://westernsydneysmiles.com.au" target="_blank" rel="noopener">Main website</a></nav>'
+FOOT_NAV = '<nav class="fnav"><a href="index.html">New Patient Offer</a><a href="dental-implants.html">Dental Implants</a><a href="emergency-dentist.html">Emergency Dentist</a><a href="thank-you.html">Thank You Page</a><a href="https://westernsydneysmiles.com.au" target="_blank" rel="noopener">Main website</a></nav>'
 
 def footer(tc):
     return f'''<footer><div class="wrap">
