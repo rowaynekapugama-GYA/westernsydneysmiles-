@@ -214,7 +214,7 @@ def nib_block():
   </div>
 </div></section>'''
 
-def funds_block(h2="All major health funds accepted. <span>Claim on the spot</span> with HICAPS.", p="Bring your health fund card and we will process your claim before you leave, so you only pay the gap. Not insured? Ask us about our interest-free payment plans so you can start treatment now and pay over time."):
+def funds_block(h2="All major health funds accepted. <span>Claim on the spot</span> with HICAPS.", p="Bring your health fund card and we will process your claim before you leave and you only pay the gap. Not insured? Ask us about our interest-free payment plans so you can start treatment now and pay over time."):
     return f'''<section class="funds" id="funds"><div class="wrap">
   <div>
     <span class="kicker">Health funds &amp; payment options</span>
@@ -241,10 +241,10 @@ def funds_block(h2="All major health funds accepted. <span>Claim on the spot</sp
 </div></section>'''
 
 def team_block(h2="Meet the team looking after your smile", lead="Six experienced dentists and an in-house denture technician under one roof in St Marys. That means more appointment times, continuity of care, and most treatments completed right here without a referral elsewhere."):
-    cards = "".join(f'<div class="tm"><img src="img/team-{k}.jpg" alt="{n}" loading="lazy"><div class="c"><b>{n}</b><span>{r}</span>{"<span class=ah>AHPRA registered</span>" if r!="Denture Technician" else "<span class=ah>In-house dentures</span>"}</div></div>' for k,n,r in TEAM)
+    cards = "".join(f'<div class="tm"><img src="img/team-{k}.jpg" alt="{n}" loading="lazy"><div class="c"><b>{n}</b><span>{r}</span>{"<span class=ah>AHPRA DEN0001789557</span>" if k=="ramesh" else ("<span class=ah>AHPRA registered</span>" if r!="Denture Technician" else "<span class=ah>In-house dentures</span>")}</div></div>' for k,n,r in TEAM)
     return f'''<section class="team" id="team"><div class="wrap">
   <div class="sec-h center"><span class="kicker">Our team</span><h2>{h2}</h2><p>{lead}</p></div>
-  <div class="team-grid">{cards}<div class="tm" style="background:var(--navy);color:#fff;display:flex;flex-direction:column;justify-content:center;padding:26px;border-color:var(--navy)"><b style="font-size:20px;line-height:1.2;margin-bottom:10px">Plus Michelle, Mya, Nadia, Tracey &amp; Nimra</b><span style="color:rgba(255,255,255,.75);font-size:14px">Our practice manager, reception and dental assistant team who will greet you, help with health fund claims and keep everything running smoothly.</span><a class="btn btn-cyan js-book" href="#book" style="margin-top:18px;align-self:flex-start;padding:12px 18px;font-size:14px">Book with our team</a></div></div>
+  <div class="team-grid">{cards}<div class="tm" style="background:var(--navy);color:#fff;display:flex;flex-direction:column;justify-content:center;padding:26px;border-color:var(--navy)"><b style="font-size:20px;line-height:1.2;margin-bottom:10px">Plus Michelle, Nadia, Tracey, Tagisa &amp; Karoleen</b><span style="color:rgba(255,255,255,.75);font-size:14px">Our practice manager, reception and dental assistant team who will greet you, help with health fund claims and keep everything running smoothly.</span><a class="btn btn-cyan js-book" href="#book" style="margin-top:18px;align-self:flex-start;padding:12px 18px;font-size:14px">Book with our team</a></div></div>
   <div class="team-note"><span>{I["users"]} 6 dentists, more appointment times</span><span>{I["tooth"]} Dentures made in-house</span><span>{I["heart"]} Gentle with nervous patients</span><span>{I["scan"]} Digital x-rays &amp; OPG on site</span></div>
 </div></section>'''
 
@@ -367,7 +367,7 @@ MAIN_JS = r'''
 '''
 
 TC_NP = "*New Patient Offer: $199 for a comprehensive examination, scale and clean, fluoride treatment and all necessary x-rays (total value $425) for new patients only. Additional treatment, if required, is quoted separately. Not to be used with any other offer. nib First Choice no gap check-up applies to eligible members only and is subject to nib's Fund Rules, policy, waiting periods, annual and service limits."
-TC_IMP = "**Dental implant from $4,490 includes a single implant fixture and crown. Some patients require additional procedures such as bone or tissue grafting, extractions or sinus lifts which are quoted separately after assessment. Payment plans are subject to credit approval."
+TC_IMP = "Dr Ramesh Harichandran, Registered Dental Practitioner, AHPRA DEN0001789557. **Dental implant from $4,490 includes a single implant fixture and crown. Some patients require additional procedures such as bone or tissue grafting, extractions or sinus lifts which are quoted separately after assessment. Payment plans are subject to credit approval."
 TC_EM = "Same-day emergency appointments are subject to availability. Emergency fees depend on the treatment required and will be confirmed with you before treatment begins. Health fund rebates vary by fund and level of cover."
 
 def finance_block():
@@ -403,8 +403,8 @@ def page_new_patients():
     h = head("New Patient Offer $199 | Dentist St Marys | Western Sydney Smiles", "New patients: comprehensive check-up, clean, x-rays and fluoride for $199 (valued at $425). nib First Choice provider, all health funds, open Saturdays. Book online in 30 seconds.", "np")
     hero_html = hero(
         "New patient offer · St Marys",
-        'Your complete check-up &amp; clean for <em>$199</em><span class="cy">*</span>',
-        "Exam, scale and clean, fluoride and all necessary x-rays, valued at $425. Six gentle dentists, open six days, and we claim your health fund on the spot. nib members may pay nothing at all.",
+        'Your comprehensive check-up &amp; clean for <em>$199</em><span class="cy">*</span>',
+        "Exam, scale and clean, fluoride and all necessary x-rays, valued at $425. Six gentle dentists, open six days, and we claim your health fund on the spot. If you are with an eligible health fund the visit is GAP FREE.",
         f'<a class="btn btn-yellow btn-lg js-book" href="#book">{I["cal"]} Book Online Now</a>',
         f'<a class="btn btn-ghost btn-lg js-call" href="{TEL}">{I["phone"]} {PHONE}</a>',
         trust_items([("shield","nib First Choice provider"),("tickc","All health funds, HICAPS on the spot"),("clock","Open Saturdays"),("users","6 dentists, 1 location")]),
@@ -429,7 +429,7 @@ def page_new_patients():
         ("I'm with nib. Do I still pay $199?","If you are an eligible nib member (or with an nib partner fund such as GU Health, Qantas, Apia, AAMI, Suncorp, Australian Seniors, Real, IMAN or ING), your preventative check-up and bitewing x-rays can be covered in full under First Choice, meaning no gap to pay on the day. Call us and we will check your eligibility before you come in."),
         ("Can I claim on my health fund?","Yes. We accept all major Australian health funds and claim on the spot through HICAPS, so you only pay any gap. Bring your health fund card to your appointment."),
         ("Is a deposit required to book?","A $50 deposit secures your appointment. Our team will take it over the phone when they confirm your booking. It comes off your treatment on the day or is fully refundable with more than 24 hours' notice."),
-        ("Do you see children?","Absolutely. We are a family practice and bulk bill eligible children under the Child Dental Benefits Schedule (CDBS), which covers up to $1,132 of basic dental over two years."),
+        ("Do you see children?","Absolutely. We are a family practice and bulk bill eligible children under the Child Dental Benefits Schedule (CDBS), which covers up to $1,158 of basic dental over two years."),
         ("I'm nervous about the dentist. Will you take it slow?","Many of our patients felt the same way before their first visit. Our dentists are gentle and will explain everything before they start. Let us know in the booking notes and we will make sure you are looked after."),
     ])
     body = (topbar("New patients: check-up, clean &amp; x-rays for $199*, valued at $425") + header() + hero_html + nib_block() + book + rating_band() + offers + funds_block() + team_block() + why_block() + faq + location_block()
@@ -442,7 +442,7 @@ def page_implants():
     hero_html = hero(
         "Dental implants · Western Sydney",
         'Replace missing teeth with implants from <em>$4,490</em><span class="cy">**</span> including the crown',
-        "A permanent, natural-looking tooth that lets you eat, speak and smile with confidence. Assessed, placed and restored by our experienced team in St Marys, with payment plans so you can start sooner.",
+        "A permanent, natural-looking tooth replacement that helps you eat, speak and smile with confidence. Our experienced team in St Marys will guide you through every step, from assessment and implant placement to your final restoration. Flexible payment plans available to help you get started sooner.",
         f'<a class="btn btn-yellow btn-lg js-book" href="#book">{I["cal"]} Book an Implant Consultation</a>',
         f'<a class="btn btn-ghost btn-lg js-call" href="{TEL}">{I["phone"]} {PHONE}</a>',
         trust_items([("tickc","Implant + crown from $4,490"),("dollar","Payment plans &amp; early release of super"),("scan","OPG x-ray on site"),("users","6 experienced dentists")]),
@@ -487,8 +487,8 @@ def page_implants():
   </div>
 </div></section>'''
     why = why_block("Why have your implant done at Western Sydney Smiles", [
-        ("users","","Experienced team","Six dentists plus an in-house denture technician, so single implants through to implant-retained dentures are handled under one roof."),
-        ("scan","y","Planned with imaging","OPG x-rays taken on site so your implant is planned around your bone and nerves, not guesswork."),
+        ("users","","Experienced team","With a team of six dentists and an in-house denture technician, we offer comprehensive implant solutions, from single tooth implants to implant-retained dentures."),
+        ("scan","y","Planned with imaging","With on-site OPG x-rays, our team can assess your jawbone and surrounding structures to help plan your implant treatment with care and precision."),
         ("dollar","","Honest pricing","Published fees, itemised quotes and payment plans. You decide with the full picture in front of you."),
         ("heart","y","Gentle, local care","Treatment and every follow-up appointment close to home in St Marys, with Saturday appointments available."),
     ])
@@ -515,7 +515,7 @@ def page_emergency():
         f'<a class="btn btn-ghost btn-lg js-book" href="#book">{I["cal"]} Request a Call Back</a>',
         trust_items([("bolt","Same-day appointments"),("clock","Open 6 days, late appointments"),("tickc","Upfront fees, no surprises"),("shield","All health funds, HICAPS")]),
         '<div class="offer-float" style="background:var(--cyan)"><span class="k">Emergency care</span><div class="v">Same day</div><span class="d">Mon to Fri from 9am · Saturday from 8am</span></div>')
-    callband = f'''<div class="call-band"><div class="wrap"><div><b>Severe pain, swelling or a knocked-out tooth?</b><span>Call us now so we can get you in as soon as possible. If you have a knocked-out tooth, keep it moist in milk and come straight in.</span></div><a class="btn btn-lg js-call" href="{TEL}">{I["phone"]} {PHONE}</a></div></div>'''
+    callband = f'''<div class="call-band"><div class="wrap"><div><b>Severe pain, swelling or a knocked-out tooth?</b><span>Call us now and we will get you in as soon as possible. If you have a knocked-out tooth, keep it moist in milk and come straight in.</span></div><a class="btn btn-lg js-call" href="{TEL}">{I["phone"]} {PHONE}</a></div></div>'''
     book = booking(
         "Request an emergency appointment",
         "Grab the next available slot from our live appointment book, or request a call back and reception will ring you. If you are in severe pain, call us directly and we will fit you in.",
@@ -541,7 +541,7 @@ def page_emergency():
   </div>
 </div></section>'''
     why = why_block("Why Western Sydney locals call us first", [
-        ("bolt","","Same-day appointments","With six dentists on the roster we keep time aside every day for emergencies, so you are not left waiting in pain."),
+        ("bolt","","Same-day appointments","With six dentists on the roster we keep time aside every day for emergencies. You will not be left waiting in pain."),
         ("clock","y","Open 6 days","Late appointments Monday to Thursday and Saturday mornings from 8am. Easy parking via Sainsbury Road."),
         ("eye","","Upfront fees","We tell you the cost before we start. Fillings from $180, extractions and root canals quoted on the spot."),
         ("heart","y","Gentle with nervous patients","Emergencies are stressful. Our team will explain everything and get you comfortable first."),
