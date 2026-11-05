@@ -97,7 +97,7 @@ def collage():
     col_html = "".join('<div class="col">' + "".join(f'<img src="img/team-{k}.jpg" alt="{names[k]}" loading="eager">' for k in c) + '</div>' for c in cols)
     return f'<div class="collage">{col_html}</div>'
 
-def hero(eyebrow, h1, lead, primary, secondary, trust, offer_float, show_rating=True):
+def hero(eyebrow, h1, lead, primary, secondary, trust, offer_float, show_rating=True, visual=None):
     rating = f'''<div class="rating-float"><div class="g">G</div><div><b>4.9 ★★★★★</b><small>260+ Google reviews</small></div></div>''' if show_rating else ""
     return f'''<section class="hero" id="top"><div class="wrap">
   <div class="hero-copy">
@@ -107,9 +107,9 @@ def hero(eyebrow, h1, lead, primary, secondary, trust, offer_float, show_rating=
     <div class="ctas">{primary}{secondary}</div>
     <div class="trust">{trust}</div>
   </div>
-  <div class="hero-visual">
+  <div class="hero-visual{' has-photo' if visual else ''}">
     {rating}
-    {collage()}
+    {visual or collage()}
     {offer_float}
   </div>
 </div></section>'''
@@ -366,7 +366,7 @@ MAIN_JS = r'''
 })();
 '''
 
-TC_NP = "*New Patient Offer: $199 for a comprehensive examination, scale and clean, fluoride treatment and all necessary x-rays (total value $425) for new patients only. Additional treatment, if required, is quoted separately. Not to be used with any other offer. nib First Choice no gap check-up applies to eligible members only and is subject to nib's Fund Rules, policy, waiting periods, annual and service limits."
+TC_NP = "*Gap free applies to new patients with eligible private health insurance extras cover, with the full fee claimed through HICAPS; benefits depend on your fund, level of cover, waiting periods and annual limits. New Patient Offer: $199 for a comprehensive examination, scale and clean, fluoride treatment and all necessary x-rays (total value $425) for new patients only. Additional treatment, if required, is quoted separately. Not to be used with any other offer. nib First Choice no gap check-up applies to eligible members only and is subject to nib's Fund Rules, policy, waiting periods, annual and service limits."
 TC_IMP = "Dr Ramesh Harichandran, Registered Dental Practitioner, AHPRA DEN0001789557. **Dental implant from $4,490 includes a single implant fixture and crown. Some patients require additional procedures such as bone or tissue grafting, extractions or sinus lifts which are quoted separately after assessment. Payment plans are subject to credit approval."
 TC_EM = "Same-day emergency appointments are subject to availability. Emergency fees depend on the treatment required and will be confirmed with you before treatment begins. Health fund rebates vary by fund and level of cover."
 
@@ -400,15 +400,15 @@ def before_after_block():
 
 # ================= PAGE 1: NEW PATIENTS =================
 def page_new_patients():
-    h = head("New Patient Offer $199 | Dentist St Marys | Western Sydney Smiles", "New patients: comprehensive check-up, clean, x-rays and fluoride for $199 (valued at $425). nib First Choice provider, all health funds, open Saturdays. Book online in 30 seconds.", "np")
+    h = head("Gap Free Check-up & Clean | Dentist St Marys | Western Sydney Smiles", "New patients: gap free check-up, clean, x-rays and fluoride with eligible health funds, or $199 without (valued at $425). nib First Choice provider, all health funds, open Saturdays. Book online in 30 seconds.", "np")
     hero_html = hero(
         "New patient offer · St Marys",
-        'Your comprehensive check-up &amp; clean for <em>$199</em><span class="cy">*</span>',
-        "Exam, scale and clean, fluoride and all necessary x-rays, valued at $425. Six gentle dentists, open six days, and we claim your health fund on the spot. If you are with an eligible health fund the visit is GAP FREE.",
+        '<em>Gap free</em> check-up &amp; clean with eligible health funds<span class="cy">*</span><span class="h1-sub">Not with a health fund? Just <b>$199</b> <span class="val">(valued at $425)</span></span>',
+        "Comprehensive exam, scale and clean, fluoride and all necessary x-rays. Six gentle dentists, open six days, and we claim your health fund on the spot with HICAPS so you walk out with nothing to pay.",
         f'<a class="btn btn-yellow btn-lg js-book" href="#book">{I["cal"]} Book Online Now</a>',
         f'<a class="btn btn-ghost btn-lg js-call" href="{TEL}">{I["phone"]} {PHONE}</a>',
         trust_items([("shield","nib First Choice provider"),("tickc","All health funds, HICAPS on the spot"),("clock","Open Saturdays"),("users","6 dentists, 1 location")]),
-        '<div class="offer-float"><span class="k">New patient offer</span><div class="v">$199 <small class="strike">$425</small></div><span class="d">Check-up, clean, fluoride + x-rays included</span></div>')
+        '<div class="offer-float"><span class="k">New patient offer</span><div class="v">Gap free<small>*</small></div><span class="d">with eligible health funds. No fund? <b>$199</b>, valued at $425.</span></div>')
     book = booking(
         "Book your $199 new patient visit",
         "Choose a day and time that suits you from our live appointment book. No phone tag, no waiting for a reply.",
@@ -432,7 +432,7 @@ def page_new_patients():
         ("Do you see children?","Absolutely. We are a family practice and bulk bill eligible children under the Child Dental Benefits Schedule (CDBS), which covers up to $1,158 of basic dental over two years."),
         ("I'm nervous about the dentist. Will you take it slow?","Many of our patients felt the same way before their first visit. Our dentists are gentle and will explain everything before they start. Let us know in the booking notes and we will make sure you are looked after."),
     ])
-    body = (topbar("New patients: check-up, clean &amp; x-rays for $199*, valued at $425") + header() + hero_html + nib_block() + book + rating_band() + offers + funds_block() + team_block() + why_block() + faq + location_block()
+    body = (topbar("New patients: gap free check-up &amp; clean with eligible funds, or $199 without*") + header() + hero_html + nib_block() + book + rating_band() + offers + funds_block() + team_block() + why_block() + faq + location_block()
             + final_cta('Ready for a healthier smile? <em>Book your $199 visit today.</em>', "Online in 30 seconds or call our friendly team. Saturday appointments available.") + footer(TC_NP))
     return h + body
 
@@ -446,7 +446,8 @@ def page_implants():
         f'<a class="btn btn-yellow btn-lg js-book" href="#book">{I["cal"]} Book an Implant Consultation</a>',
         f'<a class="btn btn-ghost btn-lg js-call" href="{TEL}">{I["phone"]} {PHONE}</a>',
         trust_items([("tickc","Implant + crown from $4,490"),("dollar","Payment plans &amp; early release of super"),("scan","OPG x-ray on site"),("users","6 experienced dentists")]),
-        '<div class="offer-float"><span class="k">Single implant</span><div class="v">$4,490<small>**</small></div><span class="d">Implant fixture + crown. Payment plans available.</span></div>')
+        '<div class="offer-float"><span class="k">Single implant</span><div class="v">$4,490<small>**</small></div><span class="d">Implant fixture + crown. Payment plans available.</span></div>',
+        visual='<div class="hero-photo"><img src="img/implant-hero.jpg" alt="Dental implant and crown shown in a model of the jaw" loading="eager"></div>')
     book = booking(
         "Book your implant consultation",
         "Choose a consultation time from our live appointment book and find out whether implants are right for you, what is involved and exactly what it will cost.",
