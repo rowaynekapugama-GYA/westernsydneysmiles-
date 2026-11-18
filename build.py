@@ -8,7 +8,7 @@ TEL = "tel:0296237333"
 ADDRESS = "7/370 Great Western Hwy, St Marys NSW 2760"
 MAPS = "https://www.google.com/maps/place/Western+Sydney+Smiles+-+Dentist+St+Marys/@-33.7701599,150.7706231,17z/data=!3m1!4b1!4m5!3m4!1s0x6b129aac30421427:0x8fbea03fccc22ecb!8m2!3d-33.7701644!4d150.7728118"
 MAP_EMBED = "https://www.google.com/maps?q=Western+Sydney+Smiles+7/370+Great+Western+Hwy+St+Marys+NSW+2760&output=embed"
-GTM_ID = "GTM-XXXXXXX"   # replace with the Western Sydney Smiles container before go-live
+GTM_ID = "GTM-NBFVFXH2"   # Western Sydney Smiles GTM container
 FORM_ENDPOINT = ""       # SmileOx / webhook endpoint for the call-back form — leave blank to run in demo mode (redirects to thank-you page)
 BOOKING_URL = "https://booking.au.hsone.app/soe/new/Western%20Sydney%20Smiles?pid=AUPNO01"   # Henry Schein One online scheduler
 BOOKING_MODE = "embed"   # "embed" = scheduler iframed on the page under the banner; "popup" = big CTA that opens it in a new window
